@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e9e7dc">
+
+  <title>Jean Martin Osseux — Laboratoire</title>
+  <meta name="description" content="Jean Martin Osseux — laboratoire artistique indépendant. Films, images, sons et autres expériences.">
+
+  <style>
+    :root {
+      --paper: #e9e7dc;
+      --ink: #191919;
+      --red: #e23b24;
+      --blue: #3548c9;
+      --line: rgba(25, 25, 25, .28);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    a:hover { color: var(--red); }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 5%;
+      border-bottom: 1px solid var(--ink);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .status { color: var(--red); }
+
+    header {
+      padding: 11vh 5% 8vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(44px, 11vw, 130px);
+      letter-spacing: -.09em;
+      line-height: .83;
+      font-weight: 900;
+      margin: 30px 0;
+      max-width: 1100px;
+      overflow-wrap: anywhere;
+    }
+
+    .subtitle {
+      font-family: Georgia, serif;
+      font-size: clamp(18px, 3vw, 28px);
+      font-style: italic;
+      max-width: 460px;
+    }
+
+    .stamp {
+      position: absolute;
+      right: 8%;
+      bottom: 12%;
+      width: 95px;
+      height: 95px;
+      border: 2px solid var(--red);
+      border-radius: 50%;
+      color: var(--red);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 10px;
+      line-height: 1.3;
+      transform: rotate(12deg);
+    }
+
+    .languages {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 14px 5%;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .languages label {
+      border: 1px solid var(--ink);
+      padding: 6px 13px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .languages label:hover,
+    #fr:checked ~ .languages label[for="fr"],
+    #en:checked ~ .languages label[for="en"],
+    #ru:checked ~ .languages label[for="ru"] {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    input[name="lang"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .translation { display: none; }
+
+    #fr:checked ~ main .fr,
+    #en:checked ~ main .en,
+    #ru:checked ~ main .ru {
+      display: block;
+    }
+
+    main { padding: 0 5%; }
+
+    .intro {
+      padding: 45px 0 55px;
+      max-width: 700px;
+      font-size: clamp(18px, 3vw, 25px);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      border-top: 1px solid var(--ink);
+      padding-top: 12px;
+      margin-bottom: 22px;
+    }
+
+    h2 {
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .index {
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding-bottom: 65px;
+    }
+
+    .project {
+      min-height: 180px;
+      padding: 18px;
+      border: 1px solid var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project:nth-child(2) {
+      background: var(--red);
+      color: var(--paper);
+    }
+
+    .project:nth-child(3) {
+      background: var(--blue);
+      color: white;
+    }
+
+    .project:nth-child(4) {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .project:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .project-number {
+      font-family: monospace;
+      font-size: 11px;
+    }
+
+    .project h3 {
+      font-size: clamp(23px, 4vw, 42px);
+      line-height: .95;
+      letter-spacing: -.05em;
+      margin: 28px 0 8px;
+    }
+
+    .project p {
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .note {
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 25px 0;
+      margin-bottom: 60px;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 25px 5%;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    @media (max-width: 520px) {
+      header { padding-top: 9vh; }
+      .stamp {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        margin: 35px 0 0 auto;
+        width: 75px;
+        height: 75px;
+      }
+      .projects { grid-template-columns: 1fr; }
+      .project { min-height: 155px; }
+      .topbar { font-size: 9px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <span>JMO / LABORATOIRE PERSONNEL</span>
+    <span class="status">● Système en construction</span>
+  </div>
+
+  <header>
+    <div class="eyebrow">Artiste indépendant · France · Terre</div>
+    <h1>JEAN MARTIN<br>OSSEUX</h1>
+    <div class="subtitle">
+      An incomplete map of things that exist.
+    </div>
+    <div class="stamp">
+      ARCHIVE<br>NON<br>DÉFINITIVE
+    </div>
+  </header>
+
+  <input type="radio" name="lang" id="fr" checked>
+  <input type="radio" name="lang" id="en">
+  <input type="radio" name="lang" id="ru">
+
+  <nav class="languages" aria-label="Language">
+    <label for="fr">FR / Français</label>
+    <label for="en">EN / English</label>
+    <label for="ru">RU / Русский</label>
+  </nav>
+
+  <main>
+    <section class="translation fr">
+      <div class="intro">
+        Ceci n'est pas vraiment un portfolio.
+        C'est un laboratoire ouvert : films, dessins,
+        sons, personnages et expériences diverses.
+        Les frontières entre les choses sont temporaires.
+      </div>
+      <div class="section-heading">
+        <h2>Départements non officiels</h2>
+        <span class="index">01 — 04</span>
+      </div>
+      <div class="projects">
+        <a class="project" href="#contact">
+          <span class="project-number">01 / IMAGE EN MOUVEMENT</span>
+          <div><h3>Cinéma</h3><p>Films, animation, essais visuels.</p></div>
+        </a>
+        <a class="project" href="#contact">
+          <span class="project-number">02 / FRÉQUENCES</span>
+          <div><h3>DJ JeanMa</h3><p>Musique, productions, sons.</p></div>
+        </a>
+        <a class="project" href="#contact">
+          <span class="project-number">03 / FAUNE DESSINÉE</span>
+          <div><h3>Grebikovitch</h3><p>BD, Grebik la Grenouille et autres créatures.</p></div>
+        </a>
+        <a class="project" href="#contact">
+          <span class="project-number">04 / AUTRES PHÉNOMÈNES</span>
+          <div><h3>Illustrations</h3><p>Images, idées et objets non classés.</p></div>
+        </a>
+      </div>
+      <div class="note">« Tout est en cours. Même ce qui semble terminé. »</div>
+    </section>
+
+    <section class="translation en">
+      <div class="intro">
+        This is not exactly a portfolio.
+        It is an open laboratory: films, drawings,
+        sounds, characters and miscellaneous experiments.
+        The boundaries between things are temporary.
+      </div>
+      <div class="section-heading">
+        <h2>Unofficial departments</h2><span class="index">01 — 04</span>
+      </div>
+      <div class="projects">
+        <a class="project" href="#contact"><span class="project-number">01 / MOVING IMAGE</span><div><h3>Cinema</h3><p>Films, animation, visual studies.</p></div></a>
+        <a class="project" href="#contact"><span class="project-number">02 / FREQUENCIES</span><div><h3>DJ JeanMa</h3><p>Music, productions, sounds.</p></div></a>
+        <a class="project" href="#contact"><span class="project-number">03 / DRAWN FAUNA</span><div><h3>Grebikovitch</h3><p>Comics, Grebik the Frog and other creatures.</p></div></a>
+        <a class="project" href="#contact"><span class="project-number">04 / OTHER PHENOMENA</span><div><h3>Illustrations</h3><p>Images, ideas and unclassified objects.</p></div></a>
+      </div>
+      <div class="note">“Everything is in progress. Even what seems finished.”</div>
+    </section>
+
+    <section class="translation ru" lang="ru">
+      <div class="intro">
+        Это не совсем портфолио.
+        Это открытая лаборатория: фильмы, рисунки,
+        звуки, персонажи и разные эксперименты.
+        Границы между вещами временны.
+      </div>
+      <div class="section-heading">
+        <h2>Неофициальные отделы</h2><span class="index">01 — 04</span>
+      </div>
+      <div class="projects">
+        <a class="project" href="#contact"><span class="project-number">01 / ДВИЖУЩЕЕСЯ ИЗОБРАЖЕНИЕ</span><div><h3>Кино</h3><p>Фильмы, анимация, визуальные этюды.</p></div></a>
+        <a class="project" href="#contact"><span class="project-number">02 / ЧАСТОТЫ</span><div><h3>DJ JeanMa</h3><p>Музыка, продакшн, звуки.</p></div></a>
+        <a class="project" href="#contact"><span class="project-number">03 / РИСОВАННАЯ ФАУНА</span><div><h3>Grebikovitch</h3><p>Комиксы, лягушонок Гребик и другие существа.</p></div></a>
+        <a class="project" href="#contact"><span class="project-number">04 / ДРУГИЕ ЯВЛЕНИЯ</span><div><h3>Иллюстрации</h3><p>Изображения, идеи и неклассифицированные объекты.</p></div></a>
+      </div>
+      <div class="note">«Всё ещё в процессе. Даже то, что кажется законченным».</div>
+    </section>
+
+    <section id="contact">
+      <div class="section-heading">
+        <h2>Contact / Contact / Контакт</h2>
+        <span class="index">∞</span>
+      </div>
+      <p>
+        <a href="https://www.instagram.com/grebikovitch/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+        &nbsp; / &nbsp; More connections coming soon.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Jean Martin Osseux © 2026</span>
+    <span>Unfinished by design / Inachevé par principe</span>
+  </footer>
+</body>
+</html>
